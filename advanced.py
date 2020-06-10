@@ -1,9 +1,9 @@
 import numpy as np
 import cv2
 
-PATH = 'img.png'
+PATH = 'img2.jpg'
 LEVEL = 8
-MAX_WIDTH = 480
+MAX_WIDTH = 512
 
 # Read image
 img = cv2.imread(PATH)
@@ -14,7 +14,7 @@ img = cv2.resize(img, (w, h))
 # Grayscale
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 img //= (256//LEVEL)
-
+# Convrt to black-white image with tone
 for y in range(h):
     for x in range(w):
         c = img[y][x]
@@ -25,14 +25,13 @@ for y in range(h):
             img[y][x] = 0
 
 # Write file
-cv2.imwrite('o2.jpg', img)
+cv2.imwrite('o3.jpg', img)
 # Show image
 cv2.imshow('w', img)
 cv2.waitKey(1)
 
-# Convert 16pixel array to short type integer
 
-
+# Convert 16 pixel array to short type integer
 def pixel2bit(pixels):
     r = 0
     for i in range(16):
@@ -47,7 +46,7 @@ def pixel2bit(pixels):
 BASE = 16384
 counter = 0
 pc = 0
-with open('o2.asm', 'w') as f:
+with open('o3.asm', 'w') as f:
     for j in range(img.shape[0]):
         row = img[j]
         print('Processing line', j+1)
@@ -62,7 +61,7 @@ with open('o2.asm', 'w') as f:
                 # Copy it to D
                 f.write(f'D=A\n')
                 # Set address of image to A
-                f.write(f'@{BASE+counter+i}\n')
+                f.write(f'@{BASE+counter*32+i}\n')
                 # Copy -D to M[A]
                 f.write(f'M=-D\n')
                 pc += 4
@@ -72,11 +71,14 @@ with open('o2.asm', 'w') as f:
                 # Copy it to D
                 f.write(f'D=A\n')
                 # Set address of image to A
-                f.write(f'@{BASE+counter+i}\n')
+                f.write(f'@{BASE+counter*32+i}\n')
                 # Copy D to M[A]
                 f.write(f'M=D\n')
                 pc += 4
         # Newline of image
-        counter += 32
+        counter += 1
+        if counter > 254:
+            break
+
     f.write(f'@{pc}\n')
     f.write(f'0;JMP\n')
