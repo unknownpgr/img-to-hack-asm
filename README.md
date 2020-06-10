@@ -1,11 +1,11 @@
 # Img2hack.asm
- A python script that convert iamage to nand2tetris HACK asm code.
-## [Gen.py](./Gen.py)
+    A python script that convert iamage to nand2tetris HACK asm code.
+## [Gen.py](./gen.py)
 1. Resize image so that generated code would not be too large.
 2. Convert it to grayscale.
 3. Binarization it with Otsu's thresholding method.
 4. Convert it to hack asm code.
-## [Advanced.py](./Advanced.py)
+## [Advanced.py](./advanced.py)
 1. Resize image so that generated code would not be too large.
 2. Convert it to grayscale.
 3. Convert grayscale to grayscale-looks like black-white image.
@@ -20,7 +20,7 @@ Then, the original image is compared with the tone map. so, if the value of a pi
 
 This can be thought of as subtracting the tone map from the original image, and then performing binarization with threshold=0.
 ## Result
-### Result of [Gen.py](./Gen.py)
+### Result of [Gen.py](./gen.py)
 You can see the given image is shown in the program.
 ![](./demo_1.png)
 After the given image is converted to a black and white image that looks like grayscale, it is displayed on the program screen.
