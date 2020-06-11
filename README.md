@@ -10,6 +10,10 @@ A python script that convert iamage to nand2tetris HACK asm code.
 2. Convert it to grayscale.
 3. Convert grayscale to grayscale-looks like black-white image.
 4. Convert it to hack asm code.
+## [v3.py](./v3.py)
+Same as "Advanced", but reduces the code capacity by bundling the same bit patterns and moving them to RAM.
+See the code for more details.
+
 ## Detail of Step 3 of Advanced.py
 First, Divide grayscale image into some cluster. For example, by doing ``image//=(256//7)``, you can divide pixels into seven cluster. For low contrast image, histogram normalization required.
 
